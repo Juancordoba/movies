@@ -108,6 +108,7 @@ export class MovieController {
     @param.path.string('id') id: string,
     @param.filter(Movie, {exclude: 'where'}) filter?: FilterExcludingWhere<Movie>
   ): Promise<Movie> {
+    console.log(filter)
     return this.movieRepository.findById(id, filter);
   }
 
