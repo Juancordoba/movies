@@ -44,6 +44,7 @@ export class MovieController {
     })
     movie: Movie,
   ): Promise<Movie> {
+    console.log(movie)
     return this.movieRepository.create(movie);
   }
 

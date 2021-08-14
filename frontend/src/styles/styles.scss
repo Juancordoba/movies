@@ -1,0 +1,40 @@
+#container {
+    width: 80%;
+    border: 1px solid $border_color;
+    border-radius: 3px;
+    box-shadow: 5px 5px 5px $border_color;
+    padding: 1rem;
+    margin: auto;
+}
+
+.navigation {
+    //background-color:  $bg-body;
+    border-bottom: 1px solid $border_color;
+    color: $color-dark;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 42px;
+    padding: 0rem 1rem;
+
+}
+
+.link{
+    text-decoration: none;
+    color: #aaa;
+    padding: 0.5rem;
+    &:hover{
+        color: #666;
+    }
+    &:active{
+        color:blue;
+    }
+}
+
+
+@media (max-width: 768px) {
+    #container {
+        width: 100%;
+        margin: auto;
+    }
+  }
