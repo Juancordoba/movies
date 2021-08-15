@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 import moviesReducer from './movies'
+import userReducer from './user'
 
 const rootReducer = combineReducers({
+    userReducer,
     moviesReducer
 })
 
