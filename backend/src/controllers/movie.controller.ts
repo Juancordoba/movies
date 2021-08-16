@@ -139,6 +139,9 @@ export class MovieController {
     @param.path.string('id') id: string,
     @requestBody() movie: Movie,
   ): Promise<void> {
+    
+    console.log(id,movie)
+
     await this.movieRepository.replaceById(id, movie);
   }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
+import { useHistory } from 'react-router'
 
 const Form = styled.form`
     border: 1px solid #a9aeb3;
@@ -67,7 +68,7 @@ export default function Header() {
             <LS.NavFixedItem_LINK to="upload">
                 Subir CSV
             </LS.NavFixedItem_LINK>
-            <LS.NavFixedItem_LINK to="upload">
+            <LS.NavFixedItem_LINK to="/movies/add">
                 Nueva Pelicula +
             </LS.NavFixedItem_LINK>
             </ButtonGroup>

@@ -3,7 +3,7 @@
  *  count: numero total de peliculas en la base de datos
  * */
 
-import { SET_MOVIES, COUNT_MOVIES } from '../actions';
+import { SET_MOVIES, COUNT_MOVIES, DEL_MOVIE } from '../actions';
 
 const initialState = {
     movies: [],
@@ -17,6 +17,11 @@ function moviesReducer(state = initialState, action: any): any {
           ...state,
           movies: action.movies,
         };
+        case DEL_MOVIE:
+          return {
+            ...state,
+             movies: state.movies.filter((movie: { title: any; }) => movie.title !== action.title)
+          };
         case COUNT_MOVIES:
           return {
             ...state,

@@ -34,7 +34,6 @@ const Input = styled.input`
 `;
 
 
-
 export default function Upload() {
   const readFile = ( e:any ) => {
     const file = e.target.files[0];
