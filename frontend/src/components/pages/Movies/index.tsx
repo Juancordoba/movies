@@ -1,35 +1,32 @@
 import React from 'react'
+import styled from 'styled-components'
+
 
 import ListMovies from './ListMovies'
 import PaginateMovies from './PaginateMovies'
-import Breadcrumb from '../../shared/breadcrumb'
-import Container from '../../shared/Container/Container'
+import Breadcrumb from '../../shared/Header'
+import Card from './CardMovies'
+import Header from './Header'
+
+const Wrapper = styled.div`
+    width: 1600px;       
+    margin: 0 auto;
+    @media (min-device-width : 1600) {
+        width: 100%;       
+        margin: 0 auto;
+    }
+`;
+
 
 export default function Movies() {
 
     return (
         <>
-           MOME
+        <Header />
+        <Wrapper>
+            <ListMovies />
+        </Wrapper>
         </>
     )
 }
-
-
-/*
-
- <Container />
-            
-                <ListMovies />
-                <PaginateMovies />
-            
-              /*  <div className="card">
-                    <div className="card-header">
-                        <h3>Titulo</h3>
-                        <h2>Volver al futuro</h2>
-                    </div>
-                    <div className="card-body">
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-    </div> */
-
 

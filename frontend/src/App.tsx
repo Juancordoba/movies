@@ -8,7 +8,7 @@ import Navigation from './components/shared/Navigation';
 import Movies from './components/pages/Movies'
 import UploadCSV from './components/pages/UploadCSV';
 import SignIn from './components/pages/SignIn'
-
+import Form from './components/pages/Movies/Form'
 
 function App() {
   const [token,setToken] = useState(""); 
@@ -24,6 +24,8 @@ function App() {
       <Switch>
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/upload" component={UploadCSV} />
+        <Route exact path="/movies/:title" component={Form} />
+        <Route exact path="/movies/add" component={Form} />
         <Route exact path="/" component={Movies} />
       </Switch>
     </Router>

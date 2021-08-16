@@ -41,9 +41,6 @@ export default function Navigation() {
     return (
         <Navbar>
             <Brand>APP Movies</Brand>
-            <LS.NavFixedItem_LINK to="upload">
-                Upload
-            </LS.NavFixedItem_LINK>
         </Navbar>
     )
 }

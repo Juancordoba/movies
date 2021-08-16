@@ -18,12 +18,12 @@ const Input = styled.input`
 	position: absolute;
 	z-index: -1;
   &+label{
+    border: 1px solid #43aa8b;;
     padding: 1rem;
     font-size: 1.25em;
     font-weight: 700;
     color: 343a40;
     border-radius: 5px;
-   // border: 1px solid #a9aeb3;
     display: inline-block;
     cursor: pointer;
   };
@@ -36,25 +36,24 @@ const Input = styled.input`
 
 
 export default function Upload() {
-
   const readFile = ( e:any ) => {
-  const file = e.target.files[0];
-  const fileReader = new FileReader();
-  fileReader.readAsText(file);
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsText(file);
 
-  fileReader.onload = () => {
-    let lineas:string[];
-    typeof(fileReader.result) === 'string'? lineas = fileReader.result.split('\r\n') : lineas = []
-    lineas.forEach(linea => {
-      let movie = linea.split(';');
-      const params = {"title":movie[0], "description": movie[1], "year":Number(movie[2])}
-      axios.post('http://localhost:5000/movies', params)
-      .then(result => {console.log(result.data)})
-      .catch(error => {console.log(error.code)})
-    })
-    e.target.value = null;    
-    document.getElementById('link')?.click();
-  }
+    fileReader.onload = () => {
+      let lineas:string[];
+      typeof(fileReader.result) === 'string'? lineas = fileReader.result.split('\r\n') : lineas = []
+      lineas.forEach(linea => {
+        let movie = linea.split(';');
+        const params = {"title":movie[0], "description": movie[1], "year":Number(movie[2])}
+        axios.post('http://localhost:5000/movies', params)
+        .then(result => {console.log(result.data)})
+        .catch(error => {console.log(error.code)})
+      })
+      e.target.value = null;    
+      document.getElementById('link')?.click();
+    }
 
   fileReader.onerror = () => {
     console.log(fileReader.error)
