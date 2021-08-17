@@ -1,7 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
-import { useHistory } from 'react-router'
+//import { useHistory } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppState } from '../../../redux/reducers'
+import { setFilter } from '../../../redux/actions'
 
 const Form = styled.form`
     border: 1px solid #a9aeb3;
@@ -50,19 +53,19 @@ LS.NavFixedItem_LINK = styled(Link)`
         color: #fff;
     }
 `
-
-
 export default function Header() {
+    const dispatch = useDispatch();
+    const {filter} = useSelector((store:AppState) => store.moviesReducer);
 
     const handleChange = (e:any) => {
-        console.log(e.target.value)
+        dispatch(setFilter(e.target.value))
     }
 
     return (
         <HeaderMovies>
             <Form>
                 <Label>filtrar por título:</Label>
-                <Input type="text" onChange={handleChange}/>
+                <Input type="text" onChange={handleChange} value={filter}/>
             </Form>
             <ButtonGroup>
             <LS.NavFixedItem_LINK to="upload">

@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { setMovies } from '../../../redux/actions';
-
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
+import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`
-//border: 1px solid red;
     width: 1000px;       
     margin: 0 auto;
     margin-top: 2rem;
@@ -22,13 +17,14 @@ const Wrapper = styled.div`
 export default function MovieForm(props:any) {
     let params:any = useParams();
     const [movie, setMovie] = useState({title:"",description:"",year:2000})
-    const [readonly, setReadOnly] = useState(true);
+    const [formTitle, setFormTitle] = useState("");
 
     useEffect(() => {
 
         const input = document.getElementById('title')
 
         if(props.action==="update") { 
+            setFormTitle("Editar película");
             input?.setAttribute('readonly', "")
             input?.classList.add("form-control-plaintext");
             input?.classList.remove("form-control");
@@ -40,10 +36,10 @@ export default function MovieForm(props:any) {
             .catch(error => {})
         }
         if(props.action==="create") { 
+            setFormTitle("Nueva Película")
             input?.removeAttribute('readonly')
             input?.classList.remove("form-control-plaintext");
             input?.classList.add("form-control");
-            setReadOnly(false)
         }
     },[])
 
@@ -72,17 +68,22 @@ export default function MovieForm(props:any) {
             .catch(error => {console.log({error})})
         }
         if(props.action==="create") {
-            axios.post(`http://192.168.0.10:5000/movies`,movie)
+            axios.post(`http://192.168.0.10:5000/movies/`,movie)
             .then(result => {console.log(result.data)})
             .catch(error => {console.log({error})})
         } 
+        document.getElementById('link')?.click();
+    }
+
+    const handleCancel = (e:any) => {
+        document.getElementById('link')?.click();
     }
 
     return (
         <Wrapper>
             <form className="border">
                 <div className="card-header">
-                    Featured
+                    {formTitle}
                 </div>
                 <div className="form-group row  p-2">
                     <label className="col-2 col-form-label">Título</label>
@@ -103,6 +104,8 @@ export default function MovieForm(props:any) {
                     </div>
                 </div>
                 <div className="text-right p-2">
+                    <Link to="/" id="link"></Link>
+                    <button className="btn-outline-secondary btn" id="button" onClick={handleCancel}>Cancelar</button>
                     <button className="btn-outline-primary btn" id="button" onClick={handleSave}>Guardar</button>
                 </div>
 

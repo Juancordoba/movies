@@ -44,7 +44,6 @@ export class MovieController {
     })
     movie: Movie,
   ): Promise<Movie> {
-    console.log(movie)
     return this.movieRepository.create(movie);
   }
 
@@ -109,7 +108,6 @@ export class MovieController {
     @param.path.string('id') id: string,
     @param.filter(Movie, {exclude: 'where'}) filter?: FilterExcludingWhere<Movie>
   ): Promise<Movie> {
-    console.log(filter)
     return this.movieRepository.findById(id, filter);
   }
 
@@ -139,9 +137,6 @@ export class MovieController {
     @param.path.string('id') id: string,
     @requestBody() movie: Movie,
   ): Promise<void> {
-    
-    console.log(id,movie)
-
     await this.movieRepository.replaceById(id, movie);
   }
 

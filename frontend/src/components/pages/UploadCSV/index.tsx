@@ -2,6 +2,7 @@ import React from 'react'
 import Upload from './Upload'
 import styled from 'styled-components'
 
+
 const Wrapper = styled.div`
     //border: 1px solid #a9aeb3;
     width: 80%;
@@ -15,9 +16,11 @@ const Wrapper = styled.div`
 ` 
 
 export default function UploadCSV() {
+
     return (
         <Wrapper>
             <Upload />   
         </Wrapper>
     )
 }
+

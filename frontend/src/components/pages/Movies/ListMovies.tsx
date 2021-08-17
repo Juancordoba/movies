@@ -13,16 +13,19 @@ import { useHistory } from 'react-router'
 export default function ListMovies() {
     const history = useHistory();
     const dispatch = useDispatch()
-    const {movies}:any = useSelector((store:AppState) => store.moviesReducer)
+    const {movies,filter,offset,limit}:any = useSelector((store:AppState) => store.moviesReducer)
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState("");
 
     const params = {
             filter: {
-                offset: 0,
-                limit: 12,
+                offset: offset,
+                limit: limit,
                 skip:0,
                 order: "",
+                "where" : {
+                    "title" : {like : `%${filter}%`}
+                  },
                 fields: {
                     title: true,
                     description: true,
@@ -32,20 +35,17 @@ export default function ListMovies() {
         }
       
     useEffect(() => {
-        axios.get(`http://192.168.0.10:5000/movies`,{params})
-        .then(result => {
-            dispatch(setMovies(result.data));
-        })
-        .catch(error => {console.log(error)});
-        axios.get(`http://192.168.0.10:5000/movies/count`)
-        .then(result => {
-            dispatch(countMovies(result.data));
-        })
-        .catch(error => {console.log(error)});       
-
-        
-
-    },[]);
+    //    axios.get(`http://192.168.0.10:5000/movies`,{params})
+    //    .then(result => {
+    //        dispatch(setMovies(result.data));
+    //    })
+    //    .catch(error => {console.log(error)});
+    //    axios.get(`http://192.168.0.10:5000/movies/count`)
+    //    .then(result => {
+    //        dispatch(countMovies(result.data.count));
+    //    })
+    //    .catch(error => {console.log(error)});       
+    },[filter,offset]);
 
     const handleDelete = (e:any) => {
         setTitle(e.target.id);
@@ -53,13 +53,19 @@ export default function ListMovies() {
     }
     
     const handleClick = () => {
-        console.log(title)
+       // console.log(title)
         axios.delete(`http://192.168.0.10:5000/movies/${title}`)
         .then(result => {
+            axios.get(`http://192.168.0.10:5000/movies/count`)
+            .then(result => {
+                dispatch(countMovies(result.data.count));
+            })
+            .catch(error => {console.log(error)});  
             //tengo que borrar la peli de redux para que se actualice la tabla
             dispatch(delMovie(title));
         })
         .catch(err => handleClose())
+        handleClose();
     }
 
     const handleClose = () => setShow(false);
@@ -90,8 +96,20 @@ export default function ListMovies() {
                         <td>{movie.year}</td>
                         <td>
                             <ButtonGroup>
-                                <Button id={movie.title} onClick={handleDelete} variant="outline-danger"  size="sm">Borrar</Button>
-                                <Button id={movie.title} onClick={redirect} variant="outline-primary" size="sm">Editar</Button>
+                                <Button 
+                                    id={movie.title} 
+                                    onClick={handleDelete} 
+                                    variant="outline-danger" 
+                                    size="sm">
+                                        Borrar
+                                </Button>
+                                <Button 
+                                    id={movie.title} 
+                                    onClick={redirect} 
+                                    variant="outline-primary" 
+                                    size="sm">
+                                        Editar
+                                </Button>
                             </ButtonGroup>
                         </td>
                     </tr>)}
