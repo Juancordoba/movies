@@ -1,7 +1,7 @@
 // Uncomment these imports to begin using these cool features!
 
 import { repository } from "@loopback/repository";
-import { UserRepository } from "../repositories";
+//import { UserRepository } from "../repositories";
 import {post, requestBody} from '@loopback/rest'
 //import {inject} from '@loopback/core';
 
@@ -12,8 +12,8 @@ class Credentials{
 
 export class UserController {
   constructor(
-    @repository(UserRepository)
-    public userRepository: UserRepository
+  //  @repository(UserRepository)
+  //  public userRepository: UserRepository
   ) {}
 
 /*
@@ -29,6 +29,6 @@ export class UserController {
   ): Promise<object>  {
 
   }
-
-}
 */
+}
+

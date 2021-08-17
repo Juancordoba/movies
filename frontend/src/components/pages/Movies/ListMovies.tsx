@@ -2,50 +2,21 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import "dotenv/config"
 import { useDispatch, useSelector } from 'react-redux'
-import { setMovies,countMovies,delMovie } from '../../../redux/actions';
+import { countMovies,delMovie } from '../../../redux/actions';
 import { AppState } from '../../../redux/reducers';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useHistory } from 'react-router'
+import env from "@beam-australia/react-env";
 
 export default function ListMovies() {
     const history = useHistory();
     const dispatch = useDispatch()
-    const {movies,filter,offset,limit}:any = useSelector((store:AppState) => store.moviesReducer)
+    const {movies}:any = useSelector((store:AppState) => store.moviesReducer)
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState("");
-
-    const params = {
-            filter: {
-                offset: offset,
-                limit: limit,
-                skip:0,
-                order: "",
-                "where" : {
-                    "title" : {like : `%${filter}%`}
-                  },
-                fields: {
-                    title: true,
-                    description: true,
-                    year: true
-                }
-            }
-        }
-      
-    useEffect(() => {
-    //    axios.get(`http://192.168.0.10:5000/movies`,{params})
-    //    .then(result => {
-    //        dispatch(setMovies(result.data));
-    //    })
-    //    .catch(error => {console.log(error)});
-    //    axios.get(`http://192.168.0.10:5000/movies/count`)
-    //    .then(result => {
-    //        dispatch(countMovies(result.data.count));
-    //    })
-    //    .catch(error => {console.log(error)});       
-    },[filter,offset]);
 
     const handleDelete = (e:any) => {
         setTitle(e.target.id);
@@ -54,9 +25,9 @@ export default function ListMovies() {
     
     const handleClick = () => {
        // console.log(title)
-        axios.delete(`http://192.168.0.10:5000/movies/${title}`)
+        axios.delete(`${env("API_HOST")}:${env("API_PORT")}/movies/${title}`)
         .then(result => {
-            axios.get(`http://192.168.0.10:5000/movies/count`)
+            axios.get(`${env("API_HOST")}:${env("API_PORT")}/movies/count`)
             .then(result => {
                 dispatch(countMovies(result.data.count));
             })
