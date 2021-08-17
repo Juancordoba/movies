@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import env from "@beam-australia/react-env";
 
 const Wrapper = styled.div`
     width: 1000px;       
@@ -28,7 +29,7 @@ export default function MovieForm(props:any) {
             input?.setAttribute('readonly', "")
             input?.classList.add("form-control-plaintext");
             input?.classList.remove("form-control");
-            axios.get(`http://192.168.0.10:5000/movies/${params.title}`)
+            axios.get(`${env("API_HOST")}:${env("API_PORT")}/movies/${params.title}`)
             .then(result => { 
                 setMovie({title:result.data.title,description:result.data.description,year:result.data.year});
                 console.log(movie);
@@ -63,12 +64,12 @@ export default function MovieForm(props:any) {
     const handleSave = (e:any) => {
         e.preventDefault();
         if(props.action==="update") { 
-            axios.put(`http://192.168.0.10:5000/movies/${movie.title}`,movie)
+            axios.put(`${env("API_HOST")}:${env("API_PORT")}/movies/${movie.title}`,movie)
             .then(result => {console.log(result.data)})
             .catch(error => {console.log({error})})
         }
         if(props.action==="create") {
-            axios.post(`http://192.168.0.10:5000/movies/`,movie)
+            axios.post(`${env("API_HOST")}:${env("API_PORT")}/movies/`,movie)
             .then(result => {console.log(result.data)})
             .catch(error => {console.log({error})})
         } 

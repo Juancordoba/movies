@@ -8,11 +8,12 @@ import { AppState } from '../../../redux/reducers';
 import ListMovies from './ListMovies'
 import PaginateMovies from './PaginateMovies'
 import Header from './Header'
+import env from "@beam-australia/react-env";
 
 const Wrapper = styled.div`
-    width: 1600px;       
+    width: 90%;       
     margin: 0 auto;
-    @media (min-device-width : 1600) {
+    @media (min-device-width : 1300) {
         width: 100%;       
         margin: 0 auto;
     }
@@ -39,12 +40,12 @@ export default function Movies() {
     }
 
     useEffect(() => {
-        axios.get(`http://192.168.0.10:5000/movies`,{params})
+        axios.get(`${env("API_HOST")}:${env("API_PORT")}/movies`,{params})
         .then(result => {
             dispatch(setMovies(result.data));
         })
         .catch(error => {console.log(error)});
-        axios.get(`http://192.168.0.10:5000/movies/count`)
+        axios.get(`${env("API_HOST")}:${env("API_PORT")}/movies/count`)
         .then(result => {
             dispatch(countMovies(result.data.count));
         })

@@ -8,7 +8,7 @@ const config = {
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: 'rojo2002',
+  password: '008dc4dec8d887f7',
   database: 'moviesdb'
 };
 

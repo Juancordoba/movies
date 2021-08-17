@@ -12,11 +12,14 @@ import MovieForm from './components/pages/Movies/Form'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from './redux/reducers';
+import env from "@beam-australia/react-env";
 
 function App() {
   const {filter,offset,limit,count}:any = useSelector((store:AppState) => store.moviesReducer)
   const dispatch = useDispatch();
   
+
+
   const params = {
       filter: {
           offset: offset,
@@ -40,6 +43,7 @@ function App() {
   //}, [])
 
   useEffect(() => {
+
   /*  axios.get(`http://192.168.0.10:5000/movies`,{params})
     .then(result => {
         dispatch(setMovies(result.data));

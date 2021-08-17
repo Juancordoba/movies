@@ -3,6 +3,7 @@ import axios from 'axios';
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
+import env from "@beam-australia/react-env";
 
 const Container = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ export default function Upload() {
       lineas.forEach(linea => {
         let movie = linea.split(';');
         const params = {"title":movie[0], "description": movie[1], "year":Number(movie[2])}
-        axios.post('http://localhost:5000/movies', params)
+        axios.post(`${env("API_HOST")}:${env("API_PORT")}/movies`, params)
         .then(result => {console.log(result.data)})
         .catch(error => {console.log(error.code)})
       })
@@ -61,9 +62,9 @@ export default function Upload() {
 }
 
 
-const handleClick = () => {
-  document.getElementById('file')?.click();
-}
+  const handleClick = () => {
+    document.getElementById('file')?.click();
+  }
 
   return (
     <Container>
